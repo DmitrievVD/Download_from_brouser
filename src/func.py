@@ -11,18 +11,6 @@ def youtube(url):
     else:
         print("Не корректная ссылка \n Формат: https://youtu.be/zNyYDHCg06c или https://www.youtube.com/zNyYDHCg06c")
 
-
-def download(url_code):
-    try:
-        image_url = "http://i1.ytimg.com/vi/" + url_code + "/maxresdefault.jpg"  # Получаем ссылку на скачивание
-        img_data = requests.get(image_url).content  # скачиваем через запрос
-        with open('preview.jpg', 'wb') as handler:
-            handler.write(img_data)
-            print("Готово")
-    except:
-        print("Не удалось скачать")
-
-
 def downloadYouTube(videourl, path, video_quality):
     try:
         print("Идет загрузка")
