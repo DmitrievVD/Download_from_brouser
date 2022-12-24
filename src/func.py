@@ -1,20 +1,22 @@
-import requests
+
 from pytube import YouTube
 import os
 
 
 def youtube(url):
     if "youtu.be" in url:  # Проверка ссылки содержит ли youtu.be
-        download(url.split('e/')[1])
+        return url
     elif "youtube.com" in url:  # Проверка ссылки содержит ли youtube.com
-        download(url.split('=')[1])
+        return url
     else:
         print("Не корректная ссылка \n Формат: https://youtu.be/zNyYDHCg06c или https://www.youtube.com/zNyYDHCg06c")
 
-def downloadYouTube(videourl, path, video_quality):
+
+
+def downloadYouTube(videourl, path = "./videos", video_quality = "720p"):
     try:
         print("Идет загрузка")
-        yt = YouTube(videourl)
+        yt = YouTube(youtube(videourl))
         yt = yt.streams.filter(res=video_quality).order_by('resolution').first()
         if not os.path.exists(path):
             os.makedirs(path)
@@ -29,6 +31,8 @@ def downloadAudioFromYoutube(videourl):
         yt = YouTube(videourl)
         video = yt.streams.filter(only_audio=True).first()
 
+        yt.streams
+
         out_file = video.download(output_path="./audio")
         base, ext = os.path.splitext(out_file)
         new_file = base + '.mp3'
@@ -36,5 +40,6 @@ def downloadAudioFromYoutube(videourl):
         print("Готово")
     except:
         print("Ошибка")
+
 
 

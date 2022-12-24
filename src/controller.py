@@ -1,5 +1,38 @@
 from func import *
 
+
+def ui():
+    import sys
+    from PyQt5 import QtWidgets
+    from user_interface import Ui_download_youtube
+
+    app = QtWidgets.QApplication(sys.argv)
+
+    download_youtube = QtWidgets.QMainWindow()
+    ui = Ui_download_youtube()
+    ui.setupUi(download_youtube)
+    download_youtube.show()
+
+    def down_video():
+        videourl = ui.url_adress.text()
+        ui.url_adress.setText("")
+        print(videourl)
+        downloadYouTube(videourl)
+
+    def down_audio():
+        videourl = ui.url_adress.text()
+        ui.url_adress.setText("")
+        print(videourl)
+        downloadAudioFromYoutube(videourl)
+
+
+
+    ui.download_video.clicked.connect(down_video)
+    ui.download_audio.clicked.connect(down_audio)
+
+    sys.exit(app.exec_())
+
+
 def click():
     user_input = int(input("Введите число:  1 - скачать видео 2 - Скачать только Аудио: \n"))
     if user_input == 1:
@@ -17,3 +50,4 @@ def click():
     else:
         print("Ошибка")
 
+ui()
